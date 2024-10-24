@@ -23,14 +23,15 @@ conjunto (Node x xs) = if estaContenido xs x then conjunto xs
 
 eliminarIndice :: List a -> Int -> List a
 eliminarIndice Void x = Void
+eliminarIndice (Node x xs) 0 = xs
 eliminarIndice (Node x xs) a = if a<0 || a >= longitud (Node x xs) then error "Indice fuera del rango permitido"
-                               else if a==0 then xs
                                else Node x (eliminarIndice xs (a - 1))
 
 insertarIndice :: List a -> Int -> a -> List a
-insertarIndice Void y z = (Node z Void) 
+insertarIndice (Node x xs) 0 z = Node z(Node x xs)
+insertarIndice Void y z = if y==0 then (Node z Void)
+                          else error "Indice fuera del rango permitido" 
 insertarIndice (Node x xs) y z = if y<0 || y >= longitud (Node x xs) then error "Indice fuera del rango permitido"
-                                 else if y==0 then Node z(Node x xs)
                                  else Node x (insertarIndice xs (y - 1) z) 
 
 recorrerLista :: List a -> Int -> List a
