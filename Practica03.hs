@@ -31,10 +31,10 @@ insertarIndice :: List a -> Int -> a -> List a
 insertarIndice (Node x xs) 0 z = Node z(Node x xs)
 insertarIndice Void y z = if y==0 then (Node z Void)
                           else error "Indice fuera del rango permitido" 
-insertarIndice (Node x xs) y z = if y<0 || y >= longitud (Node x xs) then error "Indice fuera del rango permitido"
+insertarIndice (Node x xs) y z = if y<0 || y > longitud (Node x xs) then error "Indice fuera del rango permitido"
                                  else Node x (insertarIndice xs (y - 1) z) 
 
 recorrerLista :: List a -> Int -> List a
 recorrerLista Void x = Void
-recorrerLista (Node x xs) y = if y==0 then (Node x xs)
-                              else recorrerLista (insertarIndice xs(longitud xs) x) (y-1)
+recorrerLista (Node x xs) 0 = Node x xs
+recorrerLista (Node x xs) y = recorrerLista (insertarIndice xs(longitud xs) x) (y-1)
